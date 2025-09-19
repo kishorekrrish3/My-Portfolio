@@ -1,3 +1,12 @@
+# Kishore P. | Final Year CSE (AI & Robotics) @ VIT Chennai
+
+### AWS Cloud Practitioner | Alpha MLSA | Frontend Developer | Exploring ML/DL, Generative AI & LLMs | GCP | UI/UX Designer
+
+[💻 Portfolio](https://kishore-p-portfolio.vercel.app/)
+---
+
+I can also draft the **full README content** around this title for your GitHub repo if you want it to be complete and professional.
+
 Welcome to my personal portfolio repository! This site showcases my journey as a **Final Year CSE (AI & Robotics) student at VIT Chennai, AWS Cloud Practitioner, Alpha MLSA, Frontend Developer, and UI/UX Designer**. It's built to highlight my skills in **ML/DL, Generative AI, LLMs, cloud technologies (AWS & GCP), and frontend development**, along with my projects and experiences in the tech industry.
 
 ## 🚀 About Me
