@@ -1,4 +1,4 @@
-#👋 Kishore P | Final Year CSE (AI & Robotics) @ VIT Chennai
+# 👋Kishore P | Final Year CSE (AI & Robotics) @ VIT Chennai
 
 ### AWS Cloud Practitioner | Alpha MLSA | Frontend Developer | Exploring ML/DL, Generative AI & LLMs | GCP | UI/UX Designer
 
