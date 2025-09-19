@@ -1,51 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github, Zap, Brain, Shield } from "lucide-react";
+import { usePortfolioData } from "@/hooks/usePortfolioData";
 
 const Projects = () => {
-  const projects = [
-    {
-      title: "Automated Grading System using EasyOCR & Semantic Similarity",
-      description: "AI-driven system that uses EasyOCR and NLP to automatically grade student assessments, achieving 95% accuracy and reducing manual evaluation time by 70%.",
-      technologies: ["Python", "EasyOCR", "NLP", "TensorFlow", "Machine Learning"],
-      icon: Brain,
-      color: "text-primary",
-      bgColor: "bg-primary/10",
-      metrics: [
-        { label: "Accuracy", value: "95%" },
-        { label: "Time Saved", value: "70%" },
-      ],
-      githubUrl: "https://github.com/kishorekrrish3",
-      liveUrl: "#",
-    },
-    {
-      title: "AI-Powered Emotional Virtual Assistant for System Insights",
-      description: "Innovative virtual assistant that performs emotion detection and provides real-time system health metrics, leading to a 60% improvement in user engagement.",
-      technologies: ["Python", "Computer Vision", "React", "Node.js", "APIs"],
-      icon: Zap,
-      color: "text-accent",
-      bgColor: "bg-accent/10",
-      metrics: [
-        { label: "Engagement", value: "+60%" },
-        { label: "Real-time", value: "100%" },
-      ],
-      githubUrl: "https://github.com/kishorekrrish3",
-      liveUrl: "#",
-    },
-    {
-      title: "Multimodal Real-Time Violence Detection",
-      description: "Advanced machine learning model for real-time violence detection using audio and visual cues, achieving 90% precision in identifying violent behaviors.",
-      technologies: ["Python", "Computer Vision", "Audio Processing", "Deep Learning"],
-      icon: Shield,
-      color: "text-purple-600",
-      bgColor: "bg-purple-600/10",
-      metrics: [
-        { label: "Precision", value: "90%" },
-        { label: "Real-time", value: "✓" },
-      ],
-      githubUrl: "https://github.com/kishorekrrish3",
-      liveUrl: "#",
-    },
-  ];
+  const { projects, loading } = usePortfolioData();
+
+  const iconMap: { [key: string]: any } = {
+    Brain,
+    Zap,
+    Shield,
+    Github,
+  };
 
   return (
     <section id="projects" className="py-20 bg-project-bg">
@@ -61,9 +26,32 @@ const Projects = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-            {projects.map((project, index) => {
-              const Icon = project.icon;
+          {loading ? (
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="animate-pulse">
+                  <div className="bg-gradient-card rounded-xl p-6 shadow-card">
+                    <div className="h-12 w-12 bg-muted rounded-lg mb-4"></div>
+                    <div className="h-6 bg-muted rounded mb-3"></div>
+                    <div className="h-16 bg-muted rounded mb-4"></div>
+                    <div className="h-8 bg-muted rounded mb-4"></div>
+                    <div className="space-y-2 mb-6">
+                      {[1, 2, 3].map((j) => (
+                        <div key={j} className="h-4 bg-muted rounded"></div>
+                      ))}
+                    </div>
+                    <div className="flex gap-3">
+                      <div className="h-8 bg-muted rounded flex-1"></div>
+                      <div className="h-8 bg-muted rounded flex-1"></div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+              {projects.map((project, index) => {
+                const Icon = iconMap[project.icon || 'Brain'] || Brain;
               return (
                 <div
                   key={project.title}
@@ -71,7 +59,7 @@ const Projects = () => {
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   {/* Project Icon */}
-                  <div className={`p-3 rounded-lg ${project.bgColor} w-fit mb-4`}>
+                  <div className={`p-3 rounded-lg ${project.bg_color} w-fit mb-4`}>
                     <Icon className={`w-8 h-8 ${project.color}`} />
                   </div>
 
@@ -86,18 +74,20 @@ const Projects = () => {
                   </p>
 
                   {/* Metrics */}
-                  <div className="flex gap-4 mb-4">
-                    {project.metrics.map((metric) => (
-                      <div key={metric.label} className="text-center">
-                        <div className={`text-lg font-bold ${project.color}`}>
-                          {metric.value}
+                  {project.metrics && project.metrics.length > 0 && (
+                    <div className="flex gap-4 mb-4">
+                      {project.metrics.map((metric) => (
+                        <div key={metric.label} className="text-center">
+                          <div className={`text-lg font-bold ${project.color}`}>
+                            {metric.value}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            {metric.label}
+                          </div>
                         </div>
-                        <div className="text-xs text-muted-foreground">
-                          {metric.label}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
+                  )}
 
                   {/* Technologies */}
                   <div className="flex flex-wrap gap-2 mb-6">
@@ -120,7 +110,7 @@ const Projects = () => {
                       asChild
                     >
                       <a
-                        href={project.githubUrl}
+                        href={project.github_url}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -128,14 +118,14 @@ const Projects = () => {
                         Code
                       </a>
                     </Button>
-                    {project.liveUrl !== "#" && (
+                    {project.live_url && project.live_url !== "#" && (
                       <Button
                         size="sm"
                         className="flex-1"
                         asChild
                       >
                         <a
-                          href={project.liveUrl}
+                          href={project.live_url}
                           target="_blank"
                           rel="noopener noreferrer"
                         >
@@ -146,9 +136,10 @@ const Projects = () => {
                     )}
                   </div>
                 </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </section>

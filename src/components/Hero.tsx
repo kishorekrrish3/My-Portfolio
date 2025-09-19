@@ -1,14 +1,18 @@
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail, Phone } from "lucide-react";
 import profileImage from "@/assets/kishore-profile.jpg";
+import { usePortfolioData } from "@/hooks/usePortfolioData";
 
 const Hero = () => {
+  const { profile, loading } = usePortfolioData();
+  
   const handleDownloadCV = () => {
-    // This would typically download a PDF file
-    const link = document.createElement('a');
-    link.href = '#'; // Replace with actual CV file path
-    link.download = 'Kishore_P_Resume.pdf';
-    link.click();
+    if (profile?.cv_url && profile.cv_url !== '#') {
+      const link = document.createElement('a');
+      link.href = profile.cv_url;
+      link.download = `${profile.name}_Resume.pdf`;
+      link.click();
+    }
   };
 
   const scrollToContact = () => {
@@ -25,20 +29,28 @@ const Hero = () => {
           {/* Content */}
           <div className="order-2 lg:order-1">
             <div className="animate-fade-in">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
-                Hi, I'm{" "}
-                <span className="bg-gradient-primary bg-clip-text text-transparent">
-                  Kishore P
-                </span>
-              </h1>
-              <h2 className="text-xl md:text-2xl text-muted-foreground mb-6 font-medium">
-                Software Application Developer
-              </h2>
-              <p className="text-lg text-muted-foreground mb-8 leading-relaxed max-w-2xl">
-                A highly motivated Computer Science student specializing in AI and Robotics. 
-                Passionate about applying innovative solutions to problems and contributing to 
-                impactful, scalable projects.
-              </p>
+              {loading ? (
+                <div className="animate-pulse">
+                  <div className="h-16 bg-muted rounded mb-4"></div>
+                  <div className="h-8 bg-muted rounded mb-6"></div>
+                  <div className="h-24 bg-muted rounded mb-8"></div>
+                </div>
+              ) : (
+                <>
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-4">
+                    Hi, I'm{" "}
+                    <span className="bg-gradient-primary bg-clip-text text-transparent">
+                      {profile?.name || "Kishore P"}
+                    </span>
+                  </h1>
+                  <h2 className="text-xl md:text-2xl text-muted-foreground mb-6 font-medium">
+                    {profile?.role || "Software Application Developer"}
+                  </h2>
+                  <p className="text-lg text-muted-foreground mb-8 leading-relaxed max-w-2xl">
+                    {profile?.bio || "A highly motivated Computer Science student specializing in AI and Robotics. Passionate about applying innovative solutions to problems and contributing to impactful, scalable projects."}
+                  </p>
+                </>
+              )}
               
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -60,33 +72,39 @@ const Hero = () => {
               </div>
 
               {/* Contact Links */}
-              <div className="flex flex-wrap gap-4">
-                <a
-                  href="mailto:kidkrrish3@gmail.com"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <Mail className="w-5 h-5" />
-                  <span className="hidden sm:inline">kidkrrish3@gmail.com</span>
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/kishore-p-vitc/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <Linkedin className="w-5 h-5" />
-                  <span className="hidden sm:inline">LinkedIn</span>
-                </a>
-                <a
-                  href="https://github.com/kishorekrrish3"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <Github className="w-5 h-5" />
-                  <span className="hidden sm:inline">GitHub</span>
-                </a>
-              </div>
+              {!loading && profile && (
+                <div className="flex flex-wrap gap-4">
+                  <a
+                    href={`mailto:${profile.email}`}
+                    className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    <Mail className="w-5 h-5" />
+                    <span className="hidden sm:inline">{profile.email}</span>
+                  </a>
+                  {profile.linkedin_url && (
+                    <a
+                      href={profile.linkedin_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      <Linkedin className="w-5 h-5" />
+                      <span className="hidden sm:inline">LinkedIn</span>
+                    </a>
+                  )}
+                  {profile.github_url && (
+                    <a
+                      href={profile.github_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      <Github className="w-5 h-5" />
+                      <span className="hidden sm:inline">GitHub</span>
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 

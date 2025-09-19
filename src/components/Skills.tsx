@@ -1,36 +1,40 @@
 import { Code2, Database, Cloud, Users, Settings, Palette } from "lucide-react";
+import { usePortfolioData } from "@/hooks/usePortfolioData";
 
 const Skills = () => {
-  const skillCategories = [
-    {
-      title: "Programming Languages",
-      icon: Code2,
-      skills: ["Python", "Java", "JavaScript", "C", "C++", "C#"],
-      color: "text-primary",
-      bgColor: "bg-primary/10",
-    },
-    {
-      title: "Frameworks & Libraries",
-      icon: Settings,
-      skills: ["React", "Node.js", "TensorFlow", "TailwindCSS", "DSA", "OOP"],
-      color: "text-accent",
-      bgColor: "bg-accent/10",
-    },
-    {
-      title: "Tools & Platforms",
-      icon: Cloud,
-      skills: ["Git", "GitHub", "Docker", "Kubernetes", "AWS", "GCP", "Linux", "API", "MongoDB", "MySQL", "AppWrite", "Figma"],
-      color: "text-purple-600",
-      bgColor: "bg-purple-600/10",
-    },
-    {
-      title: "Soft Skills",
-      icon: Users,
-      skills: ["Agile", "Scrum", "Team Leadership", "Design", "Communication", "Responsibility"],
-      color: "text-orange-500",
-      bgColor: "bg-orange-500/10",
-    },
-  ];
+  const { skills, loading } = usePortfolioData();
+
+  const iconMap: { [key: string]: any } = {
+    Code2,
+    Settings,
+    Cloud,
+    Users,
+    Database,
+    Palette,
+  };
+
+  // Group skills by category
+  const skillCategories = skills.reduce((acc, skill) => {
+    const existing = acc.find(cat => cat.title === skill.category);
+    if (existing) {
+      existing.skills.push(skill.skill_name);
+    } else {
+      acc.push({
+        title: skill.category,
+        icon: iconMap[skill.icon || 'Code2'] || Code2,
+        skills: [skill.skill_name],
+        color: skill.color || "text-primary",
+        bgColor: skill.bg_color || "bg-primary/10",
+      });
+    }
+    return acc;
+  }, [] as Array<{
+    title: string;
+    icon: any;
+    skills: string[];
+    color: string;
+    bgColor: string;
+  }>);
 
   return (
     <section id="skills" className="py-20 bg-skill-bg">
@@ -46,8 +50,24 @@ const Skills = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {skillCategories.map((category, index) => {
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="animate-pulse">
+                  <div className="bg-gradient-card rounded-xl p-6 shadow-card">
+                    <div className="h-8 bg-muted rounded mb-4"></div>
+                    <div className="space-y-2">
+                      {[1, 2, 3].map((j) => (
+                        <div key={j} className="h-6 bg-muted rounded"></div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {skillCategories.map((category, index) => {
               const Icon = category.icon;
               return (
                 <div
@@ -75,9 +95,10 @@ const Skills = () => {
                     ))}
                   </div>
                 </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </section>

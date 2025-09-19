@@ -1,66 +1,14 @@
 import { Award, Users, Badge, ExternalLink } from "lucide-react";
+import { usePortfolioData } from "@/hooks/usePortfolioData";
 
 const Leadership = () => {
-  const leadership = [
-    {
-      title: "General Secretary",
-      organization: "AI Club at VIT Chennai",
-      period: "2023 - 2024",
-      description: "Coordinated over 20 events including workshops, hackathons, and technical seminars focused on artificial intelligence and machine learning.",
-      achievements: [
-        "Organized 20+ AI/ML focused events",
-        "Led a team of 15+ club members",
-        "Increased club membership by 150%",
-        "Managed budget of ₹50,000+ for events",
-      ],
-      icon: Users,
-      color: "text-primary",
-      bgColor: "bg-primary/10",
-    },
-  ];
+  const { leadership, certifications, loading } = usePortfolioData();
 
-  const certifications = [
-    {
-      title: "Scrum Fundamentals Certified (SFC)",
-      issuer: "ScrumStudy",
-      date: "2024",
-      description: "Comprehensive understanding of Scrum framework, roles, events, and artifacts for agile project management.",
-      icon: Badge,
-      color: "text-accent",
-      bgColor: "bg-accent/10",
-      credentialUrl: "#",
-    },
-    {
-      title: "The Complete Full-Stack Web Development Bootcamp",
-      issuer: "Udemy",
-      date: "2024",
-      description: "Intensive course covering HTML, CSS, JavaScript, React, Node.js, databases, and deployment strategies.",
-      icon: Badge,
-      color: "text-purple-600",
-      bgColor: "bg-purple-600/10",
-      credentialUrl: "#",
-    },
-    {
-      title: "AWS Certified Cloud Practitioner",
-      issuer: "Amazon Web Services",
-      date: "2024",
-      description: "Foundational understanding of AWS cloud services, security, and pricing models.",
-      icon: Badge,
-      color: "text-orange-500",
-      bgColor: "bg-orange-500/10",
-      credentialUrl: "#",
-    },
-    {
-      title: "Foundational C# Certification",
-      issuer: "Microsoft",
-      date: "2023",
-      description: "Core programming concepts in C# including object-oriented programming, data structures, and algorithms.",
-      icon: Badge,
-      color: "text-green-600",
-      bgColor: "bg-green-600/10",
-      credentialUrl: "#",
-    },
-  ];
+  const iconMap: { [key: string]: any } = {
+    Users,
+    Badge,
+    Award,
+  };
 
   return (
     <section id="leadership" className="py-20 bg-skill-bg">
@@ -78,16 +26,36 @@ const Leadership = () => {
           {/* Leadership Section */}
           <div className="mb-16">
             <h3 className="text-2xl font-bold text-foreground mb-8 text-center">Leadership Experience</h3>
-            <div className="grid grid-cols-1 gap-8">
-              {leadership.map((item, index) => {
-                const Icon = item.icon;
+            {loading ? (
+              <div className="grid grid-cols-1 gap-8">
+                <div className="animate-pulse">
+                  <div className="bg-gradient-card rounded-xl p-8 shadow-card">
+                    <div className="flex items-start gap-6">
+                      <div className="w-16 h-16 bg-muted rounded-xl"></div>
+                      <div className="flex-1">
+                        <div className="h-6 bg-muted rounded mb-4"></div>
+                        <div className="h-16 bg-muted rounded mb-4"></div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                          {[1, 2, 3, 4].map((j) => (
+                            <div key={j} className="h-4 bg-muted rounded"></div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 gap-8">
+                {leadership.map((item, index) => {
+                  const Icon = iconMap[item.icon || 'Users'] || Users;
                 return (
                   <div
                     key={index}
                     className="bg-gradient-card rounded-xl p-8 shadow-card hover:shadow-hover transition-all duration-300"
                   >
                     <div className="flex items-start gap-6">
-                      <div className={`p-4 rounded-xl ${item.bgColor} flex-shrink-0`}>
+                      <div className={`p-4 rounded-xl ${item.bg_color} flex-shrink-0`}>
                         <Icon className={`w-8 h-8 ${item.color}`} />
                       </div>
                       
@@ -124,17 +92,37 @@ const Leadership = () => {
                       </div>
                     </div>
                   </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           {/* Certifications Section */}
           <div>
             <h3 className="text-2xl font-bold text-foreground mb-8 text-center">Professional Certifications</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {certifications.map((cert, index) => {
-                const Icon = cert.icon;
+            {loading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="animate-pulse">
+                    <div className="bg-gradient-card rounded-xl p-6 shadow-card">
+                      <div className="flex items-start gap-4 mb-4">
+                        <div className="w-12 h-12 bg-muted rounded-lg"></div>
+                        <div className="flex-1">
+                          <div className="h-5 bg-muted rounded mb-2"></div>
+                          <div className="h-4 bg-muted rounded"></div>
+                        </div>
+                      </div>
+                      <div className="h-12 bg-muted rounded mb-4"></div>
+                      <div className="h-4 bg-muted rounded"></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {certifications.map((cert, index) => {
+                  const Icon = iconMap[cert.icon || 'Badge'] || Badge;
                 return (
                   <div
                     key={index}
@@ -142,7 +130,7 @@ const Leadership = () => {
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <div className="flex items-start gap-4 mb-4">
-                      <div className={`p-3 rounded-lg ${cert.bgColor} flex-shrink-0`}>
+                      <div className={`p-3 rounded-lg ${cert.bg_color} flex-shrink-0`}>
                         <Icon className={`w-6 h-6 ${cert.color}`} />
                       </div>
                       
@@ -165,9 +153,9 @@ const Leadership = () => {
                       {cert.description}
                     </p>
                     
-                    {cert.credentialUrl !== "#" && (
+                    {cert.credential_url && cert.credential_url !== "#" && (
                       <a
-                        href={cert.credentialUrl}
+                        href={cert.credential_url}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 text-primary hover:underline font-medium text-sm"
@@ -177,9 +165,10 @@ const Leadership = () => {
                       </a>
                     )}
                   </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>

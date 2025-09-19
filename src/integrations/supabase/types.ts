@@ -14,7 +14,276 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      certifications: {
+        Row: {
+          bg_color: string | null
+          color: string | null
+          created_at: string
+          credential_url: string | null
+          date: string
+          description: string
+          display_order: number | null
+          icon: string | null
+          id: string
+          issuer: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          bg_color?: string | null
+          color?: string | null
+          created_at?: string
+          credential_url?: string | null
+          date: string
+          description: string
+          display_order?: number | null
+          icon?: string | null
+          id?: string
+          issuer: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          bg_color?: string | null
+          color?: string | null
+          created_at?: string
+          credential_url?: string | null
+          date?: string
+          description?: string
+          display_order?: number | null
+          icon?: string | null
+          id?: string
+          issuer?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      experience: {
+        Row: {
+          achievements: string[] | null
+          bg_color: string | null
+          color: string | null
+          company: string
+          created_at: string
+          description: string
+          display_order: number | null
+          icon: string | null
+          id: string
+          location: string
+          period: string
+          title: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          achievements?: string[] | null
+          bg_color?: string | null
+          color?: string | null
+          company: string
+          created_at?: string
+          description: string
+          display_order?: number | null
+          icon?: string | null
+          id?: string
+          location: string
+          period: string
+          title: string
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          achievements?: string[] | null
+          bg_color?: string | null
+          color?: string | null
+          company?: string
+          created_at?: string
+          description?: string
+          display_order?: number | null
+          icon?: string | null
+          id?: string
+          location?: string
+          period?: string
+          title?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      leadership: {
+        Row: {
+          achievements: string[] | null
+          bg_color: string | null
+          color: string | null
+          created_at: string
+          description: string
+          display_order: number | null
+          icon: string | null
+          id: string
+          organization: string
+          period: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          achievements?: string[] | null
+          bg_color?: string | null
+          color?: string | null
+          created_at?: string
+          description: string
+          display_order?: number | null
+          icon?: string | null
+          id?: string
+          organization: string
+          period: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          achievements?: string[] | null
+          bg_color?: string | null
+          color?: string | null
+          created_at?: string
+          description?: string
+          display_order?: number | null
+          icon?: string | null
+          id?: string
+          organization?: string
+          period?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profile: {
+        Row: {
+          bio: string | null
+          created_at: string
+          cv_url: string | null
+          email: string
+          github_url: string | null
+          id: string
+          linkedin_url: string | null
+          name: string
+          phone: string | null
+          profile_image_url: string | null
+          role: string
+          updated_at: string
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string
+          cv_url?: string | null
+          email: string
+          github_url?: string | null
+          id?: string
+          linkedin_url?: string | null
+          name: string
+          phone?: string | null
+          profile_image_url?: string | null
+          role: string
+          updated_at?: string
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string
+          cv_url?: string | null
+          email?: string
+          github_url?: string | null
+          id?: string
+          linkedin_url?: string | null
+          name?: string
+          phone?: string | null
+          profile_image_url?: string | null
+          role?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      projects: {
+        Row: {
+          bg_color: string | null
+          color: string | null
+          created_at: string
+          description: string
+          display_order: number | null
+          github_url: string | null
+          icon: string | null
+          id: string
+          live_url: string | null
+          metrics: Json | null
+          technologies: string[]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          bg_color?: string | null
+          color?: string | null
+          created_at?: string
+          description: string
+          display_order?: number | null
+          github_url?: string | null
+          icon?: string | null
+          id?: string
+          live_url?: string | null
+          metrics?: Json | null
+          technologies?: string[]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          bg_color?: string | null
+          color?: string | null
+          created_at?: string
+          description?: string
+          display_order?: number | null
+          github_url?: string | null
+          icon?: string | null
+          id?: string
+          live_url?: string | null
+          metrics?: Json | null
+          technologies?: string[]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      skills: {
+        Row: {
+          bg_color: string | null
+          category: string
+          color: string | null
+          created_at: string
+          display_order: number | null
+          icon: string | null
+          id: string
+          skill_name: string
+          updated_at: string
+        }
+        Insert: {
+          bg_color?: string | null
+          category: string
+          color?: string | null
+          created_at?: string
+          display_order?: number | null
+          icon?: string | null
+          id?: string
+          skill_name: string
+          updated_at?: string
+        }
+        Update: {
+          bg_color?: string | null
+          category?: string
+          color?: string | null
+          created_at?: string
+          display_order?: number | null
+          icon?: string | null
+          id?: string
+          skill_name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

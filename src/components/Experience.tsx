@@ -1,45 +1,18 @@
 import { Calendar, MapPin, GraduationCap, Briefcase } from "lucide-react";
+import { usePortfolioData } from "@/hooks/usePortfolioData";
 
 const Experience = () => {
-  const experiences = [
-    {
-      type: "work",
-      title: "Software Developer Intern",
-      company: "VitaData",
-      location: "Remote - Chennai, India",
-      period: "May 2025 - Present",
-      description: "Developed a React-based healthcare portal that cut onboarding time by 35%. Focused on creating intuitive user interfaces and optimizing application performance.",
-      achievements: [
-        "Reduced user onboarding time by 35%",
-        "Built responsive healthcare portal using React",
-        "Collaborated with cross-functional teams remotely",
-      ],
-      icon: Briefcase,
-      color: "text-primary",
-      bgColor: "bg-primary/10",
-    },
-  ];
+  const { experiences, loading } = usePortfolioData();
 
-  const education = [
-    {
-      type: "education",
-      title: "Bachelor of Technology",
-      company: "Computer Science Engineering",
-      location: "Vellore Institute of Technology, Chennai",
-      period: "2022 - 2026",
-      description: "Specializing in AI and Robotics with a strong foundation in computer science fundamentals, data structures, algorithms, and machine learning.",
-      achievements: [
-        "Current CGPA: 8.21/10",
-        "Specialization in AI and Robotics",
-        "General Secretary of AI Club",
-      ],
-      icon: GraduationCap,
-      color: "text-accent",
-      bgColor: "bg-accent/10",
-    },
-  ];
+  const iconMap: { [key: string]: any } = {
+    Briefcase,
+    GraduationCap,
+  };
 
-  const allItems = [...experiences, ...education];
+  const allItems = experiences.map(exp => ({
+    ...exp,
+    icon: iconMap[exp.icon || 'Briefcase'] || Briefcase,
+  }));
 
   return (
     <section id="experience" className="py-20 bg-section-bg">
@@ -58,9 +31,29 @@ const Experience = () => {
             {/* Timeline line */}
             <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-primary hidden md:block"></div>
 
-            <div className="space-y-12">
-              {allItems.map((item, index) => {
-                const Icon = item.icon;
+            {loading ? (
+              <div className="space-y-12">
+                {[1, 2].map((i) => (
+                  <div key={i} className="animate-pulse">
+                    <div className="relative flex items-start gap-8">
+                      <div className="hidden md:flex w-16 h-16 bg-muted rounded-full"></div>
+                      <div className="flex-1 bg-gradient-card rounded-xl p-6 shadow-card">
+                        <div className="h-6 bg-muted rounded mb-3"></div>
+                        <div className="h-16 bg-muted rounded mb-4"></div>
+                        <div className="space-y-2">
+                          {[1, 2, 3].map((j) => (
+                            <div key={j} className="h-4 bg-muted rounded"></div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-12">
+                {allItems.map((item, index) => {
+                  const Icon = item.icon;
                 return (
                   <div
                     key={index}
@@ -69,7 +62,7 @@ const Experience = () => {
                   >
                     {/* Timeline dot */}
                     <div className="hidden md:flex w-16 h-16 bg-gradient-card rounded-full shadow-card items-center justify-center relative z-10">
-                      <div className={`p-3 rounded-full ${item.bgColor}`}>
+                      <div className={`p-3 rounded-full ${item.bg_color}`}>
                         <Icon className={`w-6 h-6 ${item.color}`} />
                       </div>
                     </div>
@@ -116,9 +109,10 @@ const Experience = () => {
                       </div>
                     </div>
                   </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>
