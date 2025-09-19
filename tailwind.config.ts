@@ -47,6 +47,11 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Portfolio custom colors
+        "hero-bg": "hsl(var(--hero-bg))",
+        "section-bg": "hsl(var(--section-bg))",
+        "skill-bg": "hsl(var(--skill-bg))",
+        "project-bg": "hsl(var(--project-bg))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -57,6 +62,16 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+      },
+      backgroundImage: {
+        "gradient-primary": "var(--gradient-primary)",
+        "gradient-hero": "var(--gradient-hero)",
+        "gradient-card": "var(--gradient-card)",
+      },
+      boxShadow: {
+        "card": "var(--shadow-card)",
+        "hover": "var(--shadow-hover)",
+        "hero": "var(--shadow-hero)",
       },
       borderRadius: {
         lg: "var(--radius)",
