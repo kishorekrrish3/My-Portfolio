@@ -5,6 +5,9 @@ export const personalInfo = {
   name: "Kishore P",
   title: "AI, ML, Robotics & Full-Stack Developer",
   shortTitle: "AI / ML / Web",
+  heroRole: "Full-Stack Developer",
+  heroIntro:
+    "I build production-ready web apps and AI-powered systems — from React frontends to deep learning pipelines.",
   email: "kidkrrish3@gmail.com",
   location: "Chennai, Tamil Nadu, India",
   status: "Specialist Programmer @ Infosys",

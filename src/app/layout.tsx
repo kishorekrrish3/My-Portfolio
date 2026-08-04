@@ -44,13 +44,13 @@ export const metadata: Metadata = {
     url: "https://kishore-portfolio.vercel.app",
     title: "KISHORE P | AI/ML & Full-Stack Developer",
     description:
-      "Kishore P — AI/ML Enthusiast & Full-Stack Developer specializing in deep learning, computer vision, and modern web applications.",
+      "Kishore P — Full-Stack Developer specializing in AI/ML, deep learning, computer vision, and modern web applications.",
     images: [{ url: "/images/og_icon.png" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "KISHORE P | AI/ML & Full-Stack Developer",
-    description: "AI/ML Enthusiast & Full-Stack Developer. VIT Chennai. 13+ Projects.",
+    description: "Full-Stack Developer & AI/ML Engineer. VIT Chennai. 13+ Projects.",
     images: ["/images/og_icon.png"],
   },
   icons: {
